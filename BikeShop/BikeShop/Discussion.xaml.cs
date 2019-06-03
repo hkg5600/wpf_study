@@ -16,13 +16,14 @@ using System.Windows.Shapes;
 namespace BikeShop
 {
     /// <summary>
-    /// Contact.xaml에 대한 상호 작용 논리
+    /// Discussion.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class Contact : Page
+    public partial class Discussion : Page
     {
-        public Contact()
+        public Discussion()
         {
             InitializeComponent();
         }
+
     }
 }
