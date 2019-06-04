@@ -23,6 +23,17 @@ namespace TEST_1
         public MainWindow()
         {
             InitializeComponent();
+            var cars = new List<Car>();
+            for (int i = 0; i < 10; i++)
+            {
+                cars.Add(new Car()
+                {
+                    Speed = i * 10
+                });
+            }
+            this.DataContext = cars;
         }
+
+        
     }
 }
