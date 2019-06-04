@@ -11,6 +11,7 @@
             <Slider Maximum="100" Value="10" x:Name="slider"/>
             <ProgressBar Value="{Binding Value, ElementName=slider}" />
             <TextBox Text="{Binding Value, ElementName=slider}" />
+            <TextBox Height="23" TextWrapping="Wrap" Text="TextBox"/>
         </StackPanel>
     </Grid>
 </Window>
