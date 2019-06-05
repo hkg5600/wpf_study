@@ -7,12 +7,36 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <StackPanel>
+        <!--<StackPanel>
             <Slider Maximum="100" Value="10" x:Name="slider"/>
             <ProgressBar Value="{Binding Value, ElementName=slider}" />
             <TextBox Text="{Binding Value, ElementName=slider}" />
             <TextBox Height="23" TextWrapping="Wrap" Text="TextBox"/>
-            <ListBox Height="100" ItemsSource="{Binding}"/>
-        </StackPanel>
+            <ListBox Height="100" ItemsSource="{Binding}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Speed}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>-->
+        <ListBox ItemsSource="{Binding}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="Speed"/>
+                        <TextBlock Text="{Binding Speed}"/>
+                        <Slider Value="{Binding Speed}" Maximum="100"/>
+                        <TextBlock Text="Color"/>
+                        <Border Height="10">
+                            <Border.Background>
+                                <SolidColorBrush Color="{Binding color}"/>
+                            </Border.Background>
+                        </Border>
+                        <TextBlock Text="{Binding color}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
