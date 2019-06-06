@@ -12,19 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel;
+
 namespace BikeShop
 {
     /// <summary>
-    /// Discussion.xaml에 대한 상호 작용 논리
+    /// ProductsManagement.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class Discussion : Page
+    public partial class ProductsManagement : Page
     {
-        
-        public Discussion()
+        ProductsFactory factory = new ProductsFactory();
+        public ProductsManagement()
         {
             InitializeComponent();
-            
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            dataGrid.ItemsSource = factory.FindProducts(textBox.Text);
         }
     }
 }

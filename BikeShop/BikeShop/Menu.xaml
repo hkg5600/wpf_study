@@ -14,7 +14,7 @@
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
 
-        <Button Content="Products" FontSize="20" Margin="50,141,601,75.918"/>
+        <Button Content="Products" FontSize="20" Margin="50,141,601,75.918" Click="Button_Click_1"/>
         <Button Content="Live support" FontSize="20" Margin="243,141,408,75.918" Click="Button_Click"/>
         <Button Content="Email support" FontSize="20" Margin="442,141,209,75.918" Name="btn_email" Click="Btn_email_Click"/>
         <TextBlock TextWrapping="Wrap" Text="Adventure Works" FontSize="30" Margin="0,0,263,86" FontFamily="Poor Richard" FontStyle="Italic" FontWeight="Bold" HorizontalAlignment="Right" Width="472" Grid.RowSpan="2" Height="36" VerticalAlignment="Bottom"/>
