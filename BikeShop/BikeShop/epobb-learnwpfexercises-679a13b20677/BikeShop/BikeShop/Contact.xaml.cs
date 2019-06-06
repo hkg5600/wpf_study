@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel;
+
 namespace BikeShop
 {
     /// <summary>
-    /// Discussion.xaml에 대한 상호 작용 논리
+    /// Interaction logic for Contact.xaml
     /// </summary>
-    public partial class Discussion : Page
+    public partial class Contact : Page
     {
-        private Message msg = new Message();
-        public Discussion()
+        public Contact()
         {
             InitializeComponent();
-            
         }
     }
 }

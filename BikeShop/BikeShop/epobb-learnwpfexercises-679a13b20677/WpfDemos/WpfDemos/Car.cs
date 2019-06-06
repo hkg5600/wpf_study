@@ -4,12 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
-namespace TEST_1
+
+namespace BusinessLogic
 {
-    class Car : Notifier
+    public class Human
+    {
+        public string FirstName { get; set; }
+        public bool HasDrivingLicense { get; set; }
+    }
+
+    public class Car : Notifier
     {
         private double speed;
-        private Color color;
+
         public double Speed
         {
             get { return speed; }
@@ -19,13 +26,8 @@ namespace TEST_1
                 OnPropertyChanged("Speed");
             }
         }
-        public Color Color {
-            get { return color; }
-            set
-            {
-                color = value;
-                OnPropertyChanged("Color");
-            }
-        }
+
+        public Color Color { get; set; }
+        public Human Driver { get; set; }
     }
 }

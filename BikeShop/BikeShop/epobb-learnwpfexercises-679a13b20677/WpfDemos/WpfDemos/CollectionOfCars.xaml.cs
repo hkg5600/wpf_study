@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessLogic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,19 +13,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-namespace BikeShop
+
+namespace WpfDemos
 {
     /// <summary>
-    /// Discussion.xaml에 대한 상호 작용 논리
+    /// Interaction logic for CollectionOfCars.xaml
     /// </summary>
-    public partial class Discussion : Page
+    public partial class CollectionOfCars : Page
     {
-        private Message msg = new Message();
-        public Discussion()
+        public CollectionOfCars()
         {
             InitializeComponent();
-            
+
+            var cars = new List<Car>();
+            for (int i = 0; i < 10; i++)
+            {
+                cars.Add(new Car() {
+                    Speed = i * 10,
+                    Color = Colors.Red
+                });
+            }
+            this.DataContext = cars;
         }
     }
 }

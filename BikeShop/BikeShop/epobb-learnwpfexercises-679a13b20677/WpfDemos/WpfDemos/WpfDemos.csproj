@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E3F002EC-0E5F-41A5-8011-CC38B47F821F}</ProjectGuid>
+    <ProjectGuid>{F3782A16-228D-4332-B480-E323B4D5A32D}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BikeShop</RootNamespace>
-    <AssemblyName>BikeShop</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WpfDemos</RootNamespace>
+    <AssemblyName>WpfDemos</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,13 +55,47 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Car.cs" />
+    <Compile Include="CollectionOfCars.xaml.cs">
+      <DependentUpon>CollectionOfCars.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurrencyConverter.xaml.cs">
+      <DependentUpon>CurrencyConverter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurrencyConverter2.xaml.cs">
+      <DependentUpon>CurrencyConverter2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CurrencyConverterViewModel2.cs" />
+    <Compile Include="CurrencyConverterViewModel.cs" />
+    <Compile Include="LayoutVsRender.xaml.cs">
+      <DependentUpon>LayoutVsRender.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Notifier.cs" />
-    <Compile Include="Talk.cs" />
-    <Page Include="Contact.xaml">
+    <Compile Include="SelectionControls.xaml.cs">
+      <DependentUpon>SelectionControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sizing.xaml.cs">
+      <DependentUpon>Sizing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Styling.xaml.cs">
+      <DependentUpon>Styling.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Templating.xaml.cs">
+      <DependentUpon>Templating.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CollectionOfCars.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Discussion.xaml">
+    <Page Include="CurrencyConverter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CurrencyConverter2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LayoutVsRender.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -73,25 +107,28 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Contact.xaml.cs">
-      <DependentUpon>Contact.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Discussion.xaml.cs">
-      <DependentUpon>Discussion.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Menu.xaml">
+    <Page Include="SelectionControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sizing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styling.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Templating.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Menu.xaml.cs">
-      <DependentUpon>Menu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,12 +150,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="chat.png" />
+    <AppDesigner Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
 </Project>

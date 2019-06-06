@@ -12,19 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-namespace BikeShop
+
+namespace WpfDemos
 {
     /// <summary>
-    /// Discussion.xaml에 대한 상호 작용 논리
+    /// Interaction logic for LayoutVsRender.xaml
     /// </summary>
-    public partial class Discussion : Page
+    public partial class LayoutVsRender : Page
     {
-        private Message msg = new Message();
-        public Discussion()
+        public LayoutVsRender()
         {
             InitializeComponent();
-            
         }
     }
 }

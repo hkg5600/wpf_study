@@ -20,7 +20,8 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>-->
-        <ListBox ItemsSource="{Binding}">
+        
+        <ListBox ItemsSource="{Binding}" Margin="0,0,0,170" Name="lb">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -30,13 +31,17 @@
                         <TextBlock Text="Color"/>
                         <Border Height="10">
                             <Border.Background>
-                                <SolidColorBrush Color="{Binding color}"/>
+                                <SolidColorBrush Color="{Binding Color}"/>
                             </Border.Background>
                         </Border>
-                        <TextBlock Text="{Binding color}"/>
+                        <TextBlock Text="{Binding Color}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <TextBox Name="txtbox" Height="40" Margin="48,298,344,81"/>
+        <Button Name="btnsend" Content="Send" Click="Btnsend_Click" Margin="491,298,189,81"/>
+        <TextBox Name="txtbox2" Height="40" Margin="48,343,344,36"/>
+
     </Grid>
 </Window>
