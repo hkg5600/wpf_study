@@ -34,7 +34,19 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <TextBox Grid.Row="1" Grid.Column="0"  Text="Type your message here" FontSize="20" Name="textmsg"/>
-        <Button Grid.Row="1" Grid.Column="1" Content="Send" FontSize="20" FontStyle="Italic"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="Send" FontSize="20" FontStyle="Italic" Background="Yellow" Click="Button_Click">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Ellipse Fill="#AA000000" Margin="10, 10, 0, 0"/>
+                        <Ellipse Fill="{TemplateBinding Background}" Margin="0, 0, 10 ,10"/>
+                        <Viewbox Margin="5,5,15,15">
+                            <ContentPresenter/>
+                        </Viewbox>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
     </Grid>
 </Page>
