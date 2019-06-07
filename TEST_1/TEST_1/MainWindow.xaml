@@ -20,7 +20,7 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>-->
-        
+
         <ListBox ItemsSource="{Binding}" Margin="0,0,0,170" Name="lb">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -40,8 +40,17 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <TextBox Name="txtbox" Height="40" Margin="48,298,344,81"/>
-        <Button Name="btnsend" Content="Send" Click="Btnsend_Click" Margin="491,298,189,81"/>
-        <TextBox Name="txtbox2" Height="40" Margin="48,343,344,36"/>
+        <Button Name="btnsend" Background="Red" Content="Send" FontSize="30" Click="Btnsend_Click" Margin="489,281,191,27">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Ellipse Fill="{TemplateBinding Background}" Width="100" Height="100"/>
+                        <Label Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBox Name="txtbox2" Margin="48,343,344,41"/>
 
     </Grid>
 </Window>
