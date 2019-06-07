@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:TEST_1"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Button x:Key="button">Hello, world</Button>
+        <SolidColorBrush x:Key="accentBrush" Color="Red"/>
     </Application.Resources>
 </Application>
