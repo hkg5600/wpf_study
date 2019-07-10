@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Globalization;
+using _0709study.ViewModel;
+
 namespace _0709study
 {
     /// <summary>
@@ -20,43 +23,33 @@ namespace _0709study
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<DispatcherTimer> timer = new List<DispatcherTimer>();
-        int i = 0;
+
+        TimeViewModel viewModel = new TimeViewModel();
         public MainWindow()
         {
             InitializeComponent();
+            DataContext =viewModel;
+            DispatcherTimer mainTimer = new DispatcherTimer();
+            mainTimer.Interval = new TimeSpan(0, 0, 1);
+            mainTimer.Tick += Timer_Tick;
+            mainTimer.Start();
+        }
 
-            //DispatcherTimer timer = new DispatcherTimer();
-            
-            //timer.Add(new DispatcherTimer());
-            //timer[0].Interval = new TimeSpan(0, 0, 1);
-            //timer[0].Tick += Timer_Tick;
-            //timer[0].Start();
-            //timer.Add(new DispatcherTimer());
-            //timer[1].Interval = new TimeSpan(0, 0, 2);
-            //timer[1].Tick += Test;
-            //timer[1].Start();
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (AM.IsChecked == true)
+            {
+                viewModel.ConvertToTime(true);
+            }
+            else
+            {
+                viewModel.ConvertToTime(false);
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
             Clock.Text = DateTime.Now.ToString();
-        }
-
-        private void Test(object sender, EventArgs e)
-        {
-            test.Text = DateTime.Now.ToString();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            int sec = int.Parse(txtbox.Text);
-            timer.Add(new DispatcherTimer());
-            timer[i].Interval = new TimeSpan(0, 0, sec);
-            timer[i].Tick += Timer_Tick; // 같은 메소드를 쓰지만 인자값을 다르게 해야하고 같은 메소드인데 아 그게 그 뭐냐 
-                                         //그그그그그 이 메소드의 형식으로 여러개의 메소드를 생성해야함
-            timer[i].Start();
-            i++;
         }
     }
 }

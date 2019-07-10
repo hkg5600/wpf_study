@@ -6,10 +6,38 @@
         xmlns:local="clr-namespace:_0709study"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="89,121,0,0" Height="64" Width="652" FontSize="24" Name="Clock"/>
-        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Margin="67,300,0,0" Height="54" Width="469" FontSize="24" Name="test"/>
-        <Button Content="Button" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="588,373,0,0" Click="Button_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="588,22,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" Name="txtbox"/>
+    <Grid Margin="0,-1,0,1">
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="73,22,0,0" Height="64" Width="652" FontSize="24" Name="Clock"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding Path=Year}" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" Margin="320,188,0,0" Name="years"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding Path=Month}" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" Margin="320,242,0,0" Name="months"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding Path=Day}" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" Margin="320,297,0,0" Name="days"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding Path=Hour}" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" Margin="471,199,0,0" Name="hours"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Text="{Binding Path=Minute}" TextWrapping="Wrap" VerticalAlignment="Top" Width="62" Margin="484,244,0,0" Name="minutes"/>
+        <Button Content="Ok" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="666,287,0,0" Name="OkButton" Click="OkButton_Click" Height="75" FontSize="24"/>
+        <RadioButton Content="AM" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="586,223,0,0" Name="AM" IsChecked="True"/>
+        <RadioButton Content="PM" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="586,275,0,0" Name="PM"/>
+        <Label Content="년" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="293,188,0,0"/>
+        <Label Content="월" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="293,241,0,0" RenderTransformOrigin="6.566,0.824"/>
+        <Label Content="일" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="293,295,0,0" RenderTransformOrigin="4.565,1.207"/>
+        <Label Content="시" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="444,195,0,0" RenderTransformOrigin="4.565,1.207">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.536"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
+        <Label Content="분" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="457,242,0,0" RenderTransformOrigin="4.565,1.207"/>
+        <ListView HorizontalAlignment="Left" Height="283" ItemsSource="{Binding Items}" Margin="46,108,0,0" VerticalAlignment="Top" Width="242" RenderTransformOrigin="0.5,0.5">
+            <ListView.View>
+                <GridView AllowsColumnReorder="True">
+                    <GridViewColumn DisplayMemberBinding="{Binding id}" Header="ID" Width="30"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding dueTime}" Header="Time" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </Grid>
 </Window>
