@@ -31,7 +31,8 @@
                     </Grid.RowDefinitions>
                     <RadioButton Grid.Row="0" Content="AM" Name="AM" IsChecked="True" Margin="0, 2, 0, 2"/>
                     <RadioButton Grid.Row="1" Content="PM" Name="PM" Margin="0, 2, 0, 2"/>
-                    <Button Grid.Column="1" Margin="20,2,20,2" Name="AddButton" Content="Add" Click="AddButton_Click"/>
+                    <Button Grid.Column="1" Margin="20,2,20,2" Name="AddButton" Content="Add" Click="AddButton_Click" Visibility="{Binding IsAdd}"/>
+                    <Button Grid.Column="1" Margin="20,2,20,2" Name="ModifyButton" Content="Modify" Click="ModifyButton_Click" Visibility="{Binding IsModify}"/>
                     <Button Grid.Column="1" Grid.Row="1" Margin="20,2,20,2" Name="CancleButton" Content="Cancle" Click="CancleButton_Click"/>
                 </Grid>
             </StackPanel>

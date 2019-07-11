@@ -29,7 +29,7 @@ namespace _0709study
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = addControl.viewModel;
+            DataContext = App.viewModel;
             DispatcherTimer mainTimer = new DispatcherTimer();
             mainTimer.Interval = new TimeSpan(0, 0, 1);
             mainTimer.Tick += Timer_Tick;
@@ -38,20 +38,23 @@ namespace _0709study
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+            App.viewModel.IsAdd = true;
+            App.viewModel.IsModify = false;
+            addControl.Show();
+        }
+
+        private void ModifyButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.viewModel.IsAdd = false;
+            App.viewModel.IsModify = true;
             addControl.Show();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            int compareId = listView.SelectedIndex;
-            addControl.viewModel.DeleteTime(compareId);
-        }
+            App.viewModel.DeleteTime();
 
-        private void ModifyButton_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
-
         private void Timer_Tick(object sender, EventArgs e)
         {
             Clock.Text = DateTime.Now.ToString();

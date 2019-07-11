@@ -19,25 +19,26 @@ namespace _0709study
     /// </summary>
     public partial class AddControl : Window
     {
-        public TimeViewModel viewModel = new TimeViewModel();
+        
         public AddControl()
         {
             InitializeComponent();
-            DataContext = viewModel;
+            DataContext = App.viewModel;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
+
             this.Visibility = Visibility.Collapsed;
 
             if (AM.IsChecked == true)
             {
-                viewModel.ConvertToTime(true);
+                App.viewModel.ConvertToTime(true);
             }
 
             else
             {
-                viewModel.ConvertToTime(false);
+                App.viewModel.ConvertToTime(false);
             }
 
             years.Text = string.Empty;
@@ -46,6 +47,11 @@ namespace _0709study
             hours.Text = string.Empty;
             minutes.Text = string.Empty;
             AM.IsChecked = true;
+        }
+
+        private void ModifyButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void CancleButton_Click(object sender, RoutedEventArgs e)

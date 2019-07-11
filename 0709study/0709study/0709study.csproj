@@ -58,7 +58,7 @@
     <Compile Include="AddControl.xaml.cs">
       <DependentUpon>AddControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\TimeViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Page Include="AddControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

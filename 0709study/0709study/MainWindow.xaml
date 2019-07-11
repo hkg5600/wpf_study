@@ -13,10 +13,9 @@
         <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="563,126,0,0" Name="AddButton" Click="AddButton_Click" Height="42" FontSize="24"/>
         <Button Content="Modify" IsEnabled="{Binding ElementName=listView, Path=SelectedItem.Count}" Width="162" Height="42" Name="ModifyButton" Click="ModifyButton_Click" FontSize="24" Margin="563,201,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Button Content="Delete" IsEnabled="{Binding ElementName=listView, Path=SelectedItem.Count}" Width="162" Height="42" Name="DeleteButton" Click="DeleteButton_Click" FontSize="24" Margin="563,261,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <ListView HorizontalAlignment="Left" Height="283" ItemsSource="{Binding Items}" Name="listView" Margin="164,110,0,0" VerticalAlignment="Top" Width="242" RenderTransformOrigin="0.5,0.5">
+        <ListView HorizontalAlignment="Left" Height="283" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" Name="listView" Margin="164,110,0,0" VerticalAlignment="Top" Width="242" RenderTransformOrigin="0.5,0.5">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
-                    <GridViewColumn DisplayMemberBinding="{Binding id}" Header="ID" Width="30"/>
                     <GridViewColumn DisplayMemberBinding="{Binding dueTime}" Header="Time" Width="210"/>
                 </GridView>
             </ListView.View>

@@ -11,12 +11,13 @@ using _0709study.Model;
 
 namespace _0709study.ViewModel
 {
-    public class TimeViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
         DispatcherTimer timer = new DispatcherTimer();
-        private string year, month, day, hour, minute, dueTime, ap, showTime;
-        static int i = 0;
+        private string ap, dueTime;
+
         #region
+        private string year;
         public string Year
         {
             get => year;
@@ -26,6 +27,7 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("Year");
             }
         }
+        private string month;
         public string Month
         {
             get => month;
@@ -35,6 +37,7 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("Month");
             }
         }
+        private string day;
         public string Day
         {
             get => day;
@@ -44,6 +47,7 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("Day");
             }
         }
+        private string hour;
         public string Hour
         {
             get => hour;
@@ -53,6 +57,7 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("Hour");
             }
         }
+        private string minute;
         public string Minute
         {
             get => minute;
@@ -62,7 +67,7 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("Minute");
             }
         }
-
+        private string showTime;
         public string ShowTime
         {
             get { return showTime; }
@@ -75,6 +80,39 @@ namespace _0709study.ViewModel
 
         #endregion
 
+        private bool isAdd = false;
+        public bool IsAdd
+        {
+            get => isAdd;
+            set
+            {
+                isAdd = value;
+                OnPropertyChanged("IsAdd");
+            }
+        }
+
+        private bool isModify = false;
+        public bool IsModify
+        {
+            get => isModify;
+            set
+            {
+                isModify = value;
+                OnPropertyChanged("IsModify");
+            }
+        }
+
+        private ListViewItem selectedItem;
+        public ListViewItem SelectedItem
+        {
+            get => selectedItem;
+            set
+            {
+                selectedItem = value;
+                OnPropertyChanged("SelectedItem");
+            }
+        }
+
         ObservableCollection<ListViewItem> items = new ObservableCollection<ListViewItem>();
         public ObservableCollection<ListViewItem> Items
         {
@@ -85,6 +123,8 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("Items");
             }
         }
+
+        public bool IsModify1 { get => isModify; set => isModify = value; }
 
         public void ConvertToTime(bool IsChecked)
         {
@@ -109,10 +149,7 @@ namespace _0709study.ViewModel
             int minutes = 0;
             int secs = 0;
             timer.Interval = new TimeSpan(hours, minutes, secs);
-            Items.Add(new ListViewItem());
-            Items[i].dueTime = time;
-            Items[i].id = i;
-            i++;
+            Items.Add(new ListViewItem() { dueTime = time}) ;
             timer.Tick += Timer_Tick;
             timer.Start();
         }
@@ -122,16 +159,9 @@ namespace _0709study.ViewModel
 
         }
 
-        public void DeleteTime(int compareId)
+        public void DeleteTime()
         {
-            foreach (var item in Items)
-            {
-                if (item.id == compareId)
-                {
-                    Items.Remove(item);
-                    break;
-                }
-            }
+            Items.Remove(SelectedItem);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
