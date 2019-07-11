@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace _0709study.Model
 {
-    class Model
+    public class ListViewItem
     {
+        public int id { get; set; }
+        public DateTime dueTime { get; set; }
     }
 }

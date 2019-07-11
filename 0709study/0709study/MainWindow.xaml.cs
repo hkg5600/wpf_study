@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.Globalization;
 using _0709study.ViewModel;
+using _0709study.Model;
+
 
 namespace _0709study
 {
@@ -23,28 +25,31 @@ namespace _0709study
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        TimeViewModel viewModel = new TimeViewModel();
+        AddControl addControl = new AddControl();
         public MainWindow()
         {
             InitializeComponent();
-            DataContext =viewModel;
+            DataContext = addControl.viewModel;
             DispatcherTimer mainTimer = new DispatcherTimer();
             mainTimer.Interval = new TimeSpan(0, 0, 1);
             mainTimer.Tick += Timer_Tick;
             mainTimer.Start();
         }
 
-        private void OkButton_Click(object sender, RoutedEventArgs e)
+        private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            if (AM.IsChecked == true)
-            {
-                viewModel.ConvertToTime(true);
-            }
-            else
-            {
-                viewModel.ConvertToTime(false);
-            }
+            addControl.Show();
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            int compareId = listView.SelectedIndex;
+            addControl.viewModel.DeleteTime(compareId);
+        }
+
+        private void ModifyButton_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void Timer_Tick(object sender, EventArgs e)

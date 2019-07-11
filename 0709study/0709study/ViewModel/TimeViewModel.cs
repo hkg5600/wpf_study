@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using _0709study.Model;
 
 namespace _0709study.ViewModel
 {
-    class TimeViewModel : INotifyPropertyChanged
+    public class TimeViewModel : INotifyPropertyChanged
     {
         DispatcherTimer timer = new DispatcherTimer();
         private string year, month, day, hour, minute, dueTime, ap, showTime;
-        int i = 0;
+        static int i = 0;
         #region
         public string Year
         {
@@ -74,8 +75,8 @@ namespace _0709study.ViewModel
 
         #endregion
 
-        ObservableCollection<Data> items = new ObservableCollection<Data>();
-        public ObservableCollection<Data> Items
+        ObservableCollection<ListViewItem> items = new ObservableCollection<ListViewItem>();
+        public ObservableCollection<ListViewItem> Items
         {
             get => items;
             set
@@ -108,7 +109,7 @@ namespace _0709study.ViewModel
             int minutes = 0;
             int secs = 0;
             timer.Interval = new TimeSpan(hours, minutes, secs);
-            Items.Add(new Data());
+            Items.Add(new ListViewItem());
             Items[i].dueTime = time;
             Items[i].id = i;
             i++;
@@ -116,14 +117,21 @@ namespace _0709study.ViewModel
             timer.Start();
         }
 
-        private void ModifyTime(int id, DateTime time)
+        public void ModifyTime(int id, DateTime time)
         {
 
         }
 
-        private void DeleteTime(int id)
+        public void DeleteTime(int compareId)
         {
-
+            foreach (var item in Items)
+            {
+                if (item.id == compareId)
+                {
+                    Items.Remove(item);
+                    break;
+                }
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
