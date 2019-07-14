@@ -38,15 +38,15 @@ namespace _0709study
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            App.viewModel.IsAdd = true;
-            App.viewModel.IsModify = false;
+            App.viewModel.IsAdd = Visibility.Visible;
+            App.viewModel.IsModify = Visibility.Collapsed;
             addControl.Show();
         }
 
         private void ModifyButton_Click(object sender, RoutedEventArgs e)
         {
-            App.viewModel.IsAdd = false;
-            App.viewModel.IsModify = true;
+            App.viewModel.IsAdd = Visibility.Collapsed;
+            App.viewModel.IsModify = Visibility.Visible;
             addControl.Show();
         }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using _0709study.Model;
+using System.Windows;
 
 namespace _0709study.ViewModel
 {
@@ -77,30 +78,31 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("ShowTime");
             }
         }
-
-        #endregion
-
-        private bool isAdd = false;
-        public bool IsAdd
+        private Visibility isAdd;
+        public Visibility IsAdd
         {
-            get => isAdd;
+            get { return isAdd; }
             set
             {
                 isAdd = value;
                 OnPropertyChanged("IsAdd");
             }
         }
+        private Visibility isModify;
+        public Visibility IsModify
 
-        private bool isModify = false;
-        public bool IsModify
         {
-            get => isModify;
+            get { return isModify; }
             set
             {
                 isModify = value;
                 OnPropertyChanged("IsModify");
             }
         }
+
+        #endregion
+
+
 
         private ListViewItem selectedItem;
         public ListViewItem SelectedItem
@@ -122,9 +124,7 @@ namespace _0709study.ViewModel
                 items = value;
                 OnPropertyChanged("Items");
             }
-        }
-
-        public bool IsModify1 { get => isModify; set => isModify = value; }
+        }        
 
         public void ConvertToTime(bool IsChecked)
         {
@@ -139,7 +139,14 @@ namespace _0709study.ViewModel
             dueTime = Year + "/" + Month + "/" + Day + " " + Hour + ":" + Minute + ":" + "0" + " " + ap;
             CultureInfo cultures = CultureInfo.CreateSpecificCulture("ko-KR");
             DateTime time = Convert.ToDateTime(dueTime, cultures);
-            SetTime(time);
+            if (App.viewModel.IsAdd == Visibility.Visible)
+            {
+                SetTime(time);
+            }
+            else
+            {
+                ModifyTime(time);
+            }
         }
 
         public void SetTime(DateTime time)
@@ -154,9 +161,17 @@ namespace _0709study.ViewModel
             timer.Start();
         }
 
-        public void ModifyTime(int id, DateTime time)
+        public void ModifyTime(DateTime time)
         {
-
+            ShowTime = Convert.ToString(time);
+            int hours = 0; //time을 변환해야함
+            int minutes = 0;
+            int secs = 0;
+            timer.Interval = new TimeSpan(hours, minutes, secs);
+            SelectedItem.dueTime = time; //code does not work
+            timer.Tick += Timer_Tick;
+            timer.Start();
+            
         }
 
         public void DeleteTime()

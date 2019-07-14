@@ -35,7 +35,6 @@ namespace _0709study
             {
                 App.viewModel.ConvertToTime(true);
             }
-
             else
             {
                 App.viewModel.ConvertToTime(false);
@@ -51,7 +50,23 @@ namespace _0709study
 
         private void ModifyButton_Click(object sender, RoutedEventArgs e)
         {
+            this.Visibility = Visibility.Collapsed;
 
+            if (AM.IsChecked == true)
+            {
+                App.viewModel.ConvertToTime(true);
+            }
+            else
+            {
+                App.viewModel.ConvertToTime(false);
+            }
+
+            years.Text = string.Empty;
+            months.Text = string.Empty;
+            days.Text = string.Empty;
+            hours.Text = string.Empty;
+            minutes.Text = string.Empty;
+            AM.IsChecked = true;
         }
 
         private void CancleButton_Click(object sender, RoutedEventArgs e)
