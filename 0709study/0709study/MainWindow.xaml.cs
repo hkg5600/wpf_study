@@ -25,7 +25,7 @@ namespace _0709study
     /// </summary>
     public partial class MainWindow : Window
     {
-        AddControl addControl = new AddControl();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -40,14 +40,14 @@ namespace _0709study
         {
             App.viewModel.IsAdd = Visibility.Visible;
             App.viewModel.IsModify = Visibility.Collapsed;
-            addControl.Show();
+            App.addControl.Show();
         }
 
         private void ModifyButton_Click(object sender, RoutedEventArgs e)
         {
             App.viewModel.IsAdd = Visibility.Collapsed;
             App.viewModel.IsModify = Visibility.Visible;
-            addControl.Show();
+            App.addControl.Show();
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)

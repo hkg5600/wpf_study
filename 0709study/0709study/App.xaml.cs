@@ -16,5 +16,7 @@ namespace _0709study
     public partial class App : Application
     {
         public static MainViewModel viewModel = new MainViewModel();
+        public static AddControl addControl = new AddControl();
+        public static MainWindow mainWindow = new MainWindow();
     }
 }

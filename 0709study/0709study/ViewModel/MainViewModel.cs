@@ -20,9 +20,9 @@ namespace _0709study.ViewModel
             cultures = CultureInfo.CreateSpecificCulture("ko-KR");
         }
         DateTime time;
-        DispatcherTimer timer = new DispatcherTimer();
+
         private string ap, dueTime;
-        int hours, minutes, secs;
+        int min;
 
         #region
         private string year;
@@ -46,6 +46,12 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("Month");
             }
         }
+
+        internal void TestSetTime(DateTime value)
+        {
+            throw new NotImplementedException();
+        }
+
         private string day;
         public string Day
         {
@@ -133,8 +139,6 @@ namespace _0709study.ViewModel
             }
         }
 
-
-
         public DateTime? ConvertToTime(bool IsChecked)
         {
             if (IsChecked)
@@ -168,11 +172,10 @@ namespace _0709study.ViewModel
 
         public void SetTime(DateTime time)
         {
-            ShowTime = Convert.ToString(time);
-            hours = 0; //임시로 이렇게 해놓은 것
-            minutes = 0;
-            secs = 0;
-            timer.Interval = new TimeSpan(hours, minutes, secs);
+            DispatcherTimer timer = new DispatcherTimer();
+
+            min = ConvertToMin(time);
+            timer.Interval = new TimeSpan(0, 0, min);
             timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
 
@@ -181,12 +184,12 @@ namespace _0709study.ViewModel
 
         public void ModifyTime(DateTime time)
         {
-            Items.Remove(SelectedItem);
-            ShowTime = Convert.ToString(time);
-            hours = 0; //임시로 이렇게 해놓은 것
-            minutes = 0;
-            secs = 0;
-            timer.Interval = new TimeSpan(hours, minutes, secs);
+            DispatcherTimer timer = new DispatcherTimer();
+
+            DeleteTime();
+
+            min = ConvertToMin(time);
+            timer.Interval = new TimeSpan(0, min, 0);
             timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
 
@@ -200,12 +203,41 @@ namespace _0709study.ViewModel
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            EndOfTimer();
+            dynamic time = App.mainWindow.listView.Items;
+            foreach (var v in time)
+            {
+                DateTime t1 = ((TimeModel)v).dueTime;
+                DateTime t2 = DateTime.Now;
+                if (t1.Year == t2.Year && t1.Month == t2.Month && t1.Day == t2.Day && t1.Hour == t2.Hour && t1.Minute == t2.Minute)
+                {
+                    EndOfTimer((TimeModel)v);
+                }
+                break;
+            }
         }
 
-        private void EndOfTimer()
+        private void EndOfTimer(TimeModel time)
         {
-            //MessageBoxResult result = MessageBox.Show("설정한 시간이 되었습니다", "");
+            time.modelTimer.Stop();
+            Items.Remove(time);
+            MessageBoxResult result = MessageBox.Show("설정한 시간이 되었습니다", "");
+        }
+
+        private int ConvertToMin(DateTime time)
+        {
+            int min;
+            DateTime t = new DateTime(time.Year, time.Month, time.Day);
+            TimeSpan resultTime = t - DateTime.Now;
+            if (DateTime.Now.Day == time.Day)
+            {
+                min = ((time.Hour - DateTime.Now.Hour) * 60) + ((time.Minute - DateTime.Now.Minute));
+            }
+            else
+            {
+                min = (resultTime.Days * 24 * 60) + ((time.Hour - DateTime.Now.Hour) * 60) + ((time.Minute - DateTime.Now.Minute));
+            }
+
+            return min;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
