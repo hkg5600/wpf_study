@@ -58,7 +58,7 @@ namespace _0709study
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Clock.Text = System.DateTime.Now.ToString();
+            Clock.Text = DateTime.Now.ToString();
         }
     }
 }
