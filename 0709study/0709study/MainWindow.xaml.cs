@@ -30,8 +30,10 @@ namespace _0709study
         {
             InitializeComponent();
             DataContext = App.viewModel;
-            DispatcherTimer mainTimer = new DispatcherTimer();
-            mainTimer.Interval = new TimeSpan(0, 0, 1);
+            DispatcherTimer mainTimer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(0, 0, 1)
+            };
             mainTimer.Tick += Timer_Tick;
             mainTimer.Start();
         }
@@ -53,11 +55,10 @@ namespace _0709study
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             App.viewModel.DeleteTime();
-
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Clock.Text = DateTime.Now.ToString();
+            Clock.Text = System.DateTime.Now.ToString();
         }
     }
 }

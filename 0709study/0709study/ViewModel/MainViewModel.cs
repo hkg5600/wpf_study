@@ -15,14 +15,13 @@ namespace _0709study.ViewModel
     public class MainViewModel : INotifyPropertyChanged
     {
         CultureInfo cultures;
+        System.DateTime time;
+        private string ap, dueTime;
+
         public MainViewModel()
         {
             cultures = CultureInfo.CreateSpecificCulture("ko-KR");
         }
-        DateTime time;
-
-        private string ap, dueTime;
-        int min;
 
         #region
         private string year;
@@ -47,7 +46,7 @@ namespace _0709study.ViewModel
             }
         }
 
-        internal void TestSetTime(DateTime value)
+        internal void TestSetTime(System.DateTime value)
         {
             throw new NotImplementedException();
         }
@@ -127,9 +126,8 @@ namespace _0709study.ViewModel
             }
         }
 
-        ObservableCollection<TimeModel> items = new ObservableCollection<TimeModel>();
-
-        public ObservableCollection<TimeModel> Items
+        ObservableCollection<Model.TimeModel> items = new ObservableCollection<Model.TimeModel>();
+        public ObservableCollection<Model.TimeModel> Items
         {
             get => items;
             set
@@ -139,7 +137,7 @@ namespace _0709study.ViewModel
             }
         }
 
-        public DateTime? ConvertToTime(bool IsChecked)
+        public System.DateTime? ConvertToTime(bool IsChecked)
         {
             if (IsChecked)
             {
@@ -155,45 +153,54 @@ namespace _0709study.ViewModel
             try
             {
                 time = Convert.ToDateTime(dueTime, cultures);
-                if (0 <= DateTime.Compare(DateTime.Now, time))
+                if (0 <= System.DateTime.Compare(System.DateTime.Now, time))
                 {
-                    MessageBoxResult result = MessageBox.Show("지금 이후의 시간을 입력해주세요", "ERROR");
+                    MessageBoxResult result = MessageBox.Show("지금 이후의 시간을 입력해주세요.", "ERROR");
                     return null;
                 }
-                return time;
+                else if (GetList(time).HasValue)
+                {
+                    return time;
+                }
+                else
+                {
+                    MessageBoxResult result = MessageBox.Show("이미 있는 설정입니다.", "ERROR");
+                    return null;
+                }
+                
             }
             catch (Exception)
             {
-                MessageBoxResult result = MessageBox.Show("정확한 시간을 입력해주세요", "ERROR");
+                MessageBoxResult result = MessageBox.Show("정확한 시간을 입력해주세요.", "ERROR");
                 return null;
             }
 
         }
 
-        public void SetTime(DateTime time)
+        public void SetTime(System.DateTime time)
         {
-            DispatcherTimer timer = new DispatcherTimer();
-
-            min = ConvertToMin(time);
-            timer.Interval = new TimeSpan(0, 0, min);
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(0, ConvertToMin(time), 0)
+            };
             timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
 
-            Items.Add(new TimeModel() { dueTime = time, modelTimer = timer });
+            Items.Add(new Model.TimeModel() { dueTime = time, modelTimer = timer });
         }
 
-        public void ModifyTime(DateTime time)
+        public void ModifyTime(System.DateTime time)
         {
-            DispatcherTimer timer = new DispatcherTimer();
-
             DeleteTime();
 
-            min = ConvertToMin(time);
-            timer.Interval = new TimeSpan(0, min, 0);
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = new TimeSpan(0, ConvertToMin(time), 0)
+            };
             timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
 
-            Items.Add(new TimeModel() { dueTime = time, modelTimer = timer });
+            Items.Add(new Model.TimeModel() { dueTime = time, modelTimer = timer });
         }
 
         public void DeleteTime()
@@ -203,38 +210,58 @@ namespace _0709study.ViewModel
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            CheckData();
+        }
+
+        private void EndOfTimer(Model.TimeModel time)
+        {
+            time.modelTimer.Stop();
+            Items.Remove(time);
+            _ = MessageBox.Show("설정한 시간이 되었습니다", "");
+        }
+
+        private System.DateTime? GetList(System.DateTime time)
+        {
+            dynamic t = App.mainWindow.listView.Items;
+            foreach (var v in t)
+            {
+                System.DateTime t1 = ((Model.TimeModel)v).dueTime;
+                System.DateTime t2 = time;
+                if (t1.Year == t2.Year && t1.Month == t2.Month && t1.Day == t2.Day && t1.Hour == t2.Hour && t1.Minute == t2.Minute)
+                {
+                    return null;
+                }
+            }
+            return time;
+        }
+        
+        private void CheckData()
+        {
             dynamic time = App.mainWindow.listView.Items;
             foreach (var v in time)
             {
-                DateTime t1 = ((TimeModel)v).dueTime;
-                DateTime t2 = DateTime.Now;
+                System.DateTime t1 = ((Model.TimeModel)v).dueTime;
+                System.DateTime t2 = System.DateTime.Now;
                 if (t1.Year == t2.Year && t1.Month == t2.Month && t1.Day == t2.Day && t1.Hour == t2.Hour && t1.Minute == t2.Minute)
                 {
-                    EndOfTimer((TimeModel)v);
+                    EndOfTimer((Model.TimeModel)v);
                 }
                 break;
             }
         }
 
-        private void EndOfTimer(TimeModel time)
-        {
-            time.modelTimer.Stop();
-            Items.Remove(time);
-            MessageBoxResult result = MessageBox.Show("설정한 시간이 되었습니다", "");
-        }
-
-        private int ConvertToMin(DateTime time)
+        private int ConvertToMin(System.DateTime time)
         {
             int min;
-            DateTime t = new DateTime(time.Year, time.Month, time.Day);
-            TimeSpan resultTime = t - DateTime.Now;
-            if (DateTime.Now.Day == time.Day)
+            System.DateTime t = new System.DateTime(time.Year, time.Month, time.Day);
+            TimeSpan resultTime = t - System.DateTime.Now;
+            if (System.DateTime.Now.Day == time.Day)
             {
-                min = ((time.Hour - DateTime.Now.Hour) * 60) + ((time.Minute - DateTime.Now.Minute));
+                min = ((time.Hour - System.DateTime.Now.Hour) * 60) + ((time.Minute - System.DateTime.Now.Minute));
             }
             else
             {
-                min = (resultTime.Days * 24 * 60) + ((time.Hour - DateTime.Now.Hour) * 60) + ((time.Minute - DateTime.Now.Minute));
+                min = (resultTime.Days * 24 * 60) + ((time.Hour - System.DateTime.Now.Hour) * 60) + ((time.Minute - System.DateTime.Now.Minute));
             }
 
             return min;

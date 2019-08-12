@@ -29,6 +29,7 @@ namespace _0709study
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             DateTime? time = App.viewModel.ConvertToTime(CheckAMisChecked());
+
             if (time.HasValue)
             {
                 App.viewModel.SetTime(time.Value);
