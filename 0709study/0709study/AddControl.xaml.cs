@@ -19,7 +19,7 @@ namespace _0709study
     /// </summary>
     public partial class AddControl : Window
     {
-        
+
         public AddControl()
         {
             InitializeComponent();
@@ -28,50 +28,54 @@ namespace _0709study
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
-            this.Visibility = Visibility.Collapsed;
-
-            if (AM.IsChecked == true)
+            DateTime? time = App.viewModel.ConvertToTime(CheckAMisChecked());
+            if (time.HasValue)
             {
-                App.viewModel.ConvertToTime(true);
-            }
-            else
-            {
-                App.viewModel.ConvertToTime(false);
+                App.viewModel.SetTime(time.Value);
+                this.Visibility = Visibility.Collapsed;
             }
 
-            years.Text = string.Empty;
-            months.Text = string.Empty;
-            days.Text = string.Empty;
-            hours.Text = string.Empty;
-            minutes.Text = string.Empty;
-            AM.IsChecked = true;
+            InitInputControl();
         }
 
         private void ModifyButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
+            DateTime? time = App.viewModel.ConvertToTime(CheckAMisChecked());
 
-            if (AM.IsChecked == true)
+            if (time.HasValue)
             {
-                App.viewModel.ConvertToTime(true);
-            }
-            else
-            {
-                App.viewModel.ConvertToTime(false);
+                App.viewModel.ModifyTime(time.Value);
+                this.Visibility = Visibility.Collapsed;
             }
 
-            years.Text = string.Empty;
-            months.Text = string.Empty;
-            days.Text = string.Empty;
-            hours.Text = string.Empty;
-            minutes.Text = string.Empty;
-            AM.IsChecked = true;
+            InitInputControl();
         }
 
         private void CancleButton_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Collapsed;
+        }
+
+        private bool CheckAMisChecked()
+        {
+            if (AM.IsChecked == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void InitInputControl()
+        {
+            years.Text = string.Empty;
+            months.Text = string.Empty;
+            days.Text = string.Empty;
+            hours.Text = string.Empty;
+            minutes.Text = string.Empty;
+            AM.IsChecked = true;
         }
     }
 }

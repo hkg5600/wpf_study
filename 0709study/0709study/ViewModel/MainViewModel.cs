@@ -14,8 +14,15 @@ namespace _0709study.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        CultureInfo cultures;
+        public MainViewModel()
+        {
+            cultures = CultureInfo.CreateSpecificCulture("ko-KR");
+        }
+        DateTime time;
         DispatcherTimer timer = new DispatcherTimer();
         private string ap, dueTime;
+        int hours, minutes, secs;
 
         #region
         private string year;
@@ -28,6 +35,7 @@ namespace _0709study.ViewModel
                 OnPropertyChanged("Year");
             }
         }
+
         private string month;
         public string Month
         {
@@ -102,10 +110,8 @@ namespace _0709study.ViewModel
 
         #endregion
 
-
-
-        private ListViewItem selectedItem;
-        public ListViewItem SelectedItem
+        private TimeModel selectedItem;
+        public TimeModel SelectedItem
         {
             get => selectedItem;
             set
@@ -115,8 +121,9 @@ namespace _0709study.ViewModel
             }
         }
 
-        ObservableCollection<ListViewItem> items = new ObservableCollection<ListViewItem>();
-        public ObservableCollection<ListViewItem> Items
+        ObservableCollection<TimeModel> items = new ObservableCollection<TimeModel>();
+
+        public ObservableCollection<TimeModel> Items
         {
             get => items;
             set
@@ -124,9 +131,11 @@ namespace _0709study.ViewModel
                 items = value;
                 OnPropertyChanged("Items");
             }
-        }        
+        }
 
-        public void ConvertToTime(bool IsChecked)
+
+
+        public DateTime? ConvertToTime(bool IsChecked)
         {
             if (IsChecked)
             {
@@ -136,42 +145,52 @@ namespace _0709study.ViewModel
             {
                 ap = "PM";
             }
+
             dueTime = Year + "/" + Month + "/" + Day + " " + Hour + ":" + Minute + ":" + "0" + " " + ap;
-            CultureInfo cultures = CultureInfo.CreateSpecificCulture("ko-KR");
-            DateTime time = Convert.ToDateTime(dueTime, cultures);
-            if (App.viewModel.IsAdd == Visibility.Visible)
+
+            try
             {
-                SetTime(time);
+                time = Convert.ToDateTime(dueTime, cultures);
+                if (0 <= DateTime.Compare(DateTime.Now, time))
+                {
+                    MessageBoxResult result = MessageBox.Show("지금 이후의 시간을 입력해주세요", "ERROR");
+                    return null;
+                }
+                return time;
             }
-            else
+            catch (Exception)
             {
-                ModifyTime(time);
+                MessageBoxResult result = MessageBox.Show("정확한 시간을 입력해주세요", "ERROR");
+                return null;
             }
+
         }
 
         public void SetTime(DateTime time)
         {
             ShowTime = Convert.ToString(time);
-            int hours = 0; //time을 변환해야함
-            int minutes = 0;
-            int secs = 0;
+            hours = 0; //임시로 이렇게 해놓은 것
+            minutes = 0;
+            secs = 0;
             timer.Interval = new TimeSpan(hours, minutes, secs);
-            Items.Add(new ListViewItem() { dueTime = time}) ;
-            timer.Tick += Timer_Tick;
+            timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
+
+            Items.Add(new TimeModel() { dueTime = time, modelTimer = timer });
         }
 
         public void ModifyTime(DateTime time)
         {
+            Items.Remove(SelectedItem);
             ShowTime = Convert.ToString(time);
-            int hours = 0; //time을 변환해야함
-            int minutes = 0;
-            int secs = 0;
+            hours = 0; //임시로 이렇게 해놓은 것
+            minutes = 0;
+            secs = 0;
             timer.Interval = new TimeSpan(hours, minutes, secs);
-            SelectedItem.dueTime = time; //code does not work
-            timer.Tick += Timer_Tick;
+            timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
-            
+
+            Items.Add(new TimeModel() { dueTime = time, modelTimer = timer });
         }
 
         public void DeleteTime()
@@ -186,7 +205,7 @@ namespace _0709study.ViewModel
 
         private void EndOfTimer()
         {
-
+            //MessageBoxResult result = MessageBox.Show("설정한 시간이 되었습니다", "");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
