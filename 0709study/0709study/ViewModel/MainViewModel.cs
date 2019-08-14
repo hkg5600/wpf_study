@@ -137,9 +137,9 @@ namespace _0709study.ViewModel
             }
         }
 
-        public DateTime? ConvertToTime(bool ApIsChecked)
+        public DateTime? ConvertToTime(bool AmIsChecked)
         {
-            if (ApIsChecked)
+            if (AmIsChecked)
             {
                 ap = "AM";
             }
@@ -158,9 +158,9 @@ namespace _0709study.ViewModel
                     _ = MessageBox.Show("지금 이후의 시간을 입력해주세요.", "ERROR");
                     return null;
                 }
-                else if (!ValidData(time).HasValue)
+                else if (ValidData(time) != null)
                 {
-                   _ = MessageBox.Show("이미 있는 설정입니다.", "ERROR");
+                    _ = MessageBox.Show("이미 있는 설정입니다.", "ERROR");
                     return null;
                 }
                 else
@@ -179,10 +179,12 @@ namespace _0709study.ViewModel
 
         public void SetTime(DateTime time)
         {
-            DispatcherTimer timer = new DispatcherTimer
-            {
-                Interval = new TimeSpan(0, ConvertToMin(time), 0)
-            };
+            var (h, m, s) = ConvertToMin(time);
+
+            DispatcherTimer timer = new DispatcherTimer {
+                Interval = new TimeSpan(Convert.ToInt32(h), Convert.ToInt32(m), Convert.ToInt32(s))
+            }; //27일 후의 날짜를 입력하면 에러남
+
             timer.Tick += new EventHandler(Timer_Tick);
             timer.Start();
 
@@ -202,7 +204,7 @@ namespace _0709study.ViewModel
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            EndOfTimer(GetTime());
+            EndOfTimer(CheckTime());
         }
 
         private void EndOfTimer(TimeModel time)
@@ -215,11 +217,12 @@ namespace _0709study.ViewModel
             }
             else
             {
-                _ = MessageBox.Show("무언가 잘못됨.", "ERROR");
-            }
+                _ = MessageBox.Show("무언가 잘못됨.", "ERROR"); //이 에러 뜨면 어떻게 해결해야할지 모름 아직까진 뜬적 없어서 다행
+            }                                                   //만약 뜬다면 컴퓨터가 느린게 원일이 될 수도
+
         }
 
-        private TimeModel GetTime()
+        private TimeModel CheckTime()
         {
             dynamic time = App.mainWindow.listView.Items;
             foreach (TimeModel t in time)
@@ -234,7 +237,7 @@ namespace _0709study.ViewModel
             return null;
         }
 
-        private DateTime? ValidData(DateTime time)
+        private TimeModel ValidData(DateTime time)
         {
             dynamic d = App.mainWindow.listView.Items;
             foreach (TimeModel t in d)
@@ -243,23 +246,25 @@ namespace _0709study.ViewModel
                 DateTime t2 = time;
                 if (t1.Year == t2.Year && t1.Month == t2.Month && t1.Day == t2.Day && t1.Hour == t2.Hour && t1.Minute == t2.Minute)
                 {
-                    return null;
+                    return t;
                 }
             }
-            return time;
+            return null;
         }
 
-        private int ConvertToMin(DateTime time)
+        private (long, long, long) ConvertToMin(DateTime time)
         {
             DateTime t = new DateTime(time.Year, time.Month, time.Day);
             TimeSpan resultTime = t - DateTime.Now;
             if (DateTime.Now.Day == time.Day)
             {
-                return ((time.Hour - DateTime.Now.Hour) * 60) + ((time.Minute - DateTime.Now.Minute));
+                long sec = ((time.Hour - DateTime.Now.Hour) * 60 * 60) + ((time.Minute - DateTime.Now.Minute) * 60);
+                return ((sec / 60 / 60), (sec / 60 % 60), (sec % 60 % 60));
             }
             else
             {
-                return (resultTime.Days * 24 * 60) + ((time.Hour - DateTime.Now.Hour) * 60) + ((time.Minute - DateTime.Now.Minute));
+                long sec = (resultTime.Days * 24 * 60 * 60) + ((time.Hour - DateTime.Now.Hour) * 60 * 60) + ((time.Minute - DateTime.Now.Minute) * 60);
+                return ((sec / 60 / 60), (sec / 60 % 60), (sec % 60 % 60));
             }
         }
 

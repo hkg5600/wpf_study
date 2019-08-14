@@ -11,8 +11,30 @@
     <Grid>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="73,22,0,0" Height="64" Width="652" FontSize="24" Name="Clock"/>
         <Button Content="Add" HorizontalAlignment="Left" VerticalAlignment="Top" Width="162" Margin="563,126,0,0" Name="AddButton" Click="AddButton_Click" Height="42" FontSize="24"/>
-        <Button Content="Modify" IsEnabled="{Binding ElementName=listView, Path=SelectedItem.Count}" Width="162" Height="42" Name="ModifyButton" Click="ModifyButton_Click" FontSize="24" Margin="563,201,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button Content="Delete" IsEnabled="{Binding ElementName=listView, Path=SelectedItem.Count}" Width="162" Height="42" Name="DeleteButton" Click="DeleteButton_Click" FontSize="24" Margin="563,261,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <!--<Button Content="Modify" IsEnabled="{Binding ElementName=listView, Path=SelectedItem}" Width="162" Height="42" Name="ModifyButton" Click="ModifyButton_Click" FontSize="24" Margin="563,201,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>-->
+        <Button Content="Modify" Width="162" Height="42" Name="ModifyButton" Click="ModifyButton_Click" FontSize="24" Margin="563,201,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=listView, Path=SelectedIndex}" Value="-1">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Button Content="Delete" Width="162" Height="42" Name="DeleteButton" Click="DeleteButton_Click" FontSize="24" Margin="563,261,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button.Style>
+                <Style>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=listView, Path=SelectedIndex}" Value="-1">
+                            <Setter Property="Button.IsEnabled" Value="False"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        
         <ListView Height="283" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedItem}" Name="listView" Margin="73,110,0,0" Width="242" HorizontalAlignment="Left" VerticalAlignment="Top">
             <ListView.View>
                 <GridView AllowsColumnReorder="True">
@@ -20,7 +42,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
 
     </Grid>
 </Window>
