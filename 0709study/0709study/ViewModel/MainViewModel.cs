@@ -218,7 +218,7 @@ namespace _0709study.ViewModel
             else
             {
                 _ = MessageBox.Show("무언가 잘못됨.", "ERROR"); //이 에러 뜨면 어떻게 해결해야할지 모름 아직까진 뜬적 없어서 다행
-            }                                                   //만약 뜬다면 컴퓨터가 느린게 원일이 될 수도
+            }                                                   //두번 떴음 망했음;; 이거 고치려면 CheckTime 메소드를 갈아엎어야함
 
         }
 
@@ -256,7 +256,7 @@ namespace _0709study.ViewModel
         {
             DateTime t = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second);
             TimeSpan resultTime = t - DateTime.Now;
-            long sec = (resultTime.Days * 24 * 60 * 60) + (resultTime.Hours * 60 * 60) + (resultTime.Minutes * 60);
+            long sec = (resultTime.Days * 24 * 60 * 60) + (resultTime.Hours * 60 * 60) + (resultTime.Minutes * 60) + (resultTime.Seconds);
             return ((sec / 60 / 60), (sec / 60 % 60), (sec % 60 % 60));
         }
 
