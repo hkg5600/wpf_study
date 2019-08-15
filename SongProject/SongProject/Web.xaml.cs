@@ -10,19 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SongProject
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Web.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Web : Window
     {
-        public MainWindow()
+        public Web()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
     }
 }

@@ -16,13 +16,23 @@ using System.Windows.Shapes;
 namespace SongProject
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SelectMode.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SelectMode : Page
     {
-        public MainWindow()
+        public SelectMode()
         {
-            InitializeComponent();            
+            InitializeComponent();
+        }
+
+        private void Append_Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new Uri("AppendPage.xaml", UriKind.Relative));
+        }
+
+        private void Select_Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

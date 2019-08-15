@@ -1,0 +1,24 @@
+﻿<Page x:Class="SongProject.AppendPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SongProject"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AppendPage">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="제목" VerticalAlignment="Top" Margin="22,39,0,0" FontSize="24"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="코드" VerticalAlignment="Top" Margin="22,146,0,0" FontSize="24"/>
+        <TextBlock TextWrapping="Wrap" Text="이미지" VerticalAlignment="Top" Margin="22,261,0,0" FontSize="24" HorizontalAlignment="Left" Width="80"/>
+        <TextBox Name="ttitle" Text="{Binding Path=Title}" Height="30" Margin="22,76,0,0" TextWrapping="Wrap" Width="325" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Path=Code}" Height="30" Margin="22,183,0,0" TextWrapping="Wrap" Width="325" FontSize="13" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBox Text="{Binding Path=Url}" Margin="22,298,0,0" TextWrapping="Wrap" Width="325" FontSize="13" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"/>
+        <Button Content="Search" Margin="266,266,0,0" Width="81" Height="27" Click="Search_Button_Click" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Image Height="340" Source="{Binding Url, Mode=TwoWay}" Margin="388,77,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="372"/>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="이미지 미리보기" VerticalAlignment="Top" Margin="388,40,0,0" FontSize="24"/>
+        <Button Content="추가" Margin="22,365,0,0" Width="150" Click="Append_Button_Click" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
+        <Button Content="취소" Margin="197,365,0,0" Width="150" Click="Cancle_Button_Click" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top"/>
+    </Grid>
+</Page>
