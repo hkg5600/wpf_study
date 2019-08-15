@@ -254,18 +254,10 @@ namespace _0709study.ViewModel
 
         private (long, long, long) ConvertToMin(DateTime time)
         {
-            DateTime t = new DateTime(time.Year, time.Month, time.Day);
+            DateTime t = new DateTime(time.Year, time.Month, time.Day, time.Hour, time.Minute, time.Second);
             TimeSpan resultTime = t - DateTime.Now;
-            if (DateTime.Now.Day == time.Day)
-            {
-                long sec = ((time.Hour - DateTime.Now.Hour) * 60 * 60) + ((time.Minute - DateTime.Now.Minute) * 60);
-                return ((sec / 60 / 60), (sec / 60 % 60), (sec % 60 % 60));
-            }
-            else
-            {
-                long sec = (resultTime.Days * 24 * 60 * 60) + ((time.Hour - DateTime.Now.Hour) * 60 * 60) + ((time.Minute - DateTime.Now.Minute) * 60);
-                return ((sec / 60 / 60), (sec / 60 % 60), (sec % 60 % 60));
-            }
+            long sec = (resultTime.Days * 24 * 60 * 60) + (resultTime.Hours * 60 * 60) + (resultTime.Minutes * 60);
+            return ((sec / 60 / 60), (sec / 60 % 60), (sec % 60 % 60));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
