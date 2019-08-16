@@ -48,13 +48,22 @@ namespace SongProject.ViewModel
         {
             if("OK" == new RequestToSever().PostToServer(Title, Code, Url))
             {
+                InitData();
                 return true;
             }
             else
             {
                 _ = MessageBox.Show("오류 발생 잠시 후 다시 시도해주세요.", "error");
+                InitData();
                 return false;
             }
+        }
+
+        public void InitData()
+        {
+            Url = string.Empty;
+            Title = string.Empty;
+            Code = string.Empty;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

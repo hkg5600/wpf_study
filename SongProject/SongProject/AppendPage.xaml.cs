@@ -44,17 +44,20 @@ namespace SongProject
                 {
                     _ = MessageBox.Show("저장 완료.");
                 }
-                initBox();
+                InitBox();
                 this.NavigationService.Navigate(new Uri("Menu.xaml", UriKind.Relative));
             }
             else
             {
-                initBox();
+                InitBox();
+                App.appendViewModel.InitData();
                 _ = MessageBox.Show("모든 항목을 입력해주세요");
             }
         }
         private void Cancle_Button_Click(object sender, RoutedEventArgs e)
         {
+            InitBox();
+            App.appendViewModel.InitData();
             this.NavigationService.Navigate(new Uri("Menu.xaml", UriKind.Relative));
         }
 
@@ -70,11 +73,11 @@ namespace SongProject
             }
         }
 
-        public void initBox()
+        public void InitBox()
         {
-            this.codeBox.Text = null;
-            this.titleBox.Text = null;
-            this.urlBox.Text = null;
+            codeBox.Text = string.Empty;
+            titleBox.Text = string.Empty;
+            urlBox.Text = string.Empty;
         }
 
         private static Image WebImageView(string URL)
