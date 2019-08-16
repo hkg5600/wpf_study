@@ -16,7 +16,7 @@ namespace SongProject
     {
         public static MainWindow mainWindow = new MainWindow();
         public static SelectMode selectMode = new SelectMode();
-        public static AppendPage appendControl = new AppendPage();
+        public static AppendPage appendpage = new AppendPage();
         public static AppendViewModel appendViewModel = new AppendViewModel();
         public static Web web = new Web();
     }

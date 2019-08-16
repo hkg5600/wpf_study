@@ -20,23 +20,21 @@ namespace RestSharpTest
             var client = new RestClient("http://127.0.0.1:8000/");
             var request = new RestRequest("rest/api/", Method.POST);
             request.RequestFormat = DataFormat.Json;
-            //request.AddJsonBody(new Data()
-            //{
-            //    title = title,
-            //    code = code                
-            //});
             request.AddParameter("title", title);
             request.AddParameter("code", code);
             DownloadRemoteImageFile(url, path);
             request.AddFile("image", path);
             //request.AddParameter("multipart/form-data", path, ParameterType.RequestBody);
             IRestResponse response = client.Execute(request);
-            Console.WriteLine(response.Content.ToString());
+            Console.WriteLine(response.Content.ToString() + "\n" + response.StatusCode.ToString());
             Console.WriteLine("Hello World!");
 
             request = new RestRequest("rest/api/", Method.GET);
             var queryResult = client.Execute(request).Content;
             var j = JArray.Parse(queryResult);
+
+            Console.WriteLine(j.ToString());
+
             foreach (JObject jobj in j)
             {
                 data.Add(new Data() { title = jobj["title"].ToString(), code = jobj["code"].ToString() });

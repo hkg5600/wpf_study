@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Image = System.Drawing.Image;
 
 namespace SongProject
 {
@@ -37,29 +38,53 @@ namespace SongProject
 
         private void Append_Button_Click(object sender, RoutedEventArgs e)
         {
-
+            if (ValidTextBox())
+            {
+                if (App.appendViewModel.SendDataToSender())
+                {
+                    _ = MessageBox.Show("저장 완료.");
+                }
+                initBox();
+                this.NavigationService.Navigate(new Uri("SelectMode.xaml", UriKind.Relative));
+            }
+            else
+            {
+                initBox();
+                _ = MessageBox.Show("모든 항목을 입력해주세요");
+            }
         }
         private void Cancle_Button_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new Uri("SelectMode.xaml", UriKind.Relative));
         }
 
-        public Bitmap WebImageView(string URL)
+        public bool ValidTextBox()
         {
-            try
+            if (this.codeBox.Text != null && this.titleBox.Text != null && this.urlBox.Text != null)
             {
-                WebClient Downloader = new WebClient();
-                Stream ImageStream = Downloader.OpenRead(URL);
-                Bitmap DownloadImage = Bitmap.FromStream(ImageStream) as Bitmap;
-                return DownloadImage;
+                return true;
             }
-            catch (Exception)
+            else
             {
-                return null;
+                return false;
             }
-
         }
 
-        
+        public void initBox()
+        {
+            this.codeBox.Text = null;
+            this.titleBox.Text = null;
+            this.urlBox.Text = null;
+        }
+
+        private static Image WebImageView(string URL)
+        {
+            WebClient wc = new WebClient();
+            byte[] bytes = wc.DownloadData(URL);
+            MemoryStream ms = new MemoryStream(bytes);
+            Image img = System.Drawing.Image.FromStream(ms);
+            return img;
+        }
+
     }
 }
