@@ -201,6 +201,7 @@ namespace _0709study.ViewModel
 
         public void DeleteTime()
         {
+            SelectedItem.modelTimer.Stop();
             Items.Remove(SelectedItem);
         }
 
