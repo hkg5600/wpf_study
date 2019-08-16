@@ -126,7 +126,7 @@ namespace _0709study.ViewModel
             }
         }
 
-        ObservableCollection<TimeModel> items = new ObservableCollection<TimeModel>();
+        private ObservableCollection<TimeModel> items = new ObservableCollection<TimeModel>();
         public ObservableCollection<TimeModel> Items
         {
             get => items;

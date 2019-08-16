@@ -45,7 +45,7 @@ namespace SongProject
                     _ = MessageBox.Show("저장 완료.");
                 }
                 initBox();
-                this.NavigationService.Navigate(new Uri("SelectMode.xaml", UriKind.Relative));
+                this.NavigationService.Navigate(new Uri("Menu.xaml", UriKind.Relative));
             }
             else
             {
@@ -55,7 +55,7 @@ namespace SongProject
         }
         private void Cancle_Button_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("SelectMode.xaml", UriKind.Relative));
+            this.NavigationService.Navigate(new Uri("Menu.xaml", UriKind.Relative));
         }
 
         public bool ValidTextBox()

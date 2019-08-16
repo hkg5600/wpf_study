@@ -10,29 +10,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SongProject
 {
     /// <summary>
-    /// Interaction logic for SelectMode.xaml
+    /// Interaction logic for ImageDetail.xaml
     /// </summary>
-    public partial class SelectMode : Page
+    public partial class ImageDetail : Window
     {
-        public SelectMode()
+        public ImageDetail()
         {
             InitializeComponent();
+            this.DataContext = App.imageDetailViewModel;
         }
 
-        private void Append_Button_Click(object sender, RoutedEventArgs e)
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.NavigationService.Navigate(new Uri("AppendPage.xaml", UriKind.Relative));
-        }
-
-        private void Select_Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            //구현 목적은 오류 방지였지만 내가 작성한 코드가 오류를 만들었고 지우니 아무 오류도 없다
         }
     }
 }

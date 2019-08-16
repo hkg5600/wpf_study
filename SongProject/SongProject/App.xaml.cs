@@ -18,6 +18,9 @@ namespace SongProject
         public static SelectMode selectMode = new SelectMode();
         public static AppendPage appendpage = new AppendPage();
         public static AppendViewModel appendViewModel = new AppendViewModel();
+        public static SelectPage selectPage = new SelectPage();
+        public static SelectViewModel selectViewModel = new SelectViewModel();
+        public static ImageDetailViewModel imageDetailViewModel = new ImageDetailViewModel();
         public static Web web = new Web();
     }
 }

@@ -11,17 +11,6 @@ namespace SongProject.ViewModel
 {
     public class AppendViewModel : INotifyPropertyChanged
     {
-        private Image img;
-        public Image Img
-        {
-            get => img;
-            set
-            {
-                img = value;
-                OnPropertyChanged("Img");
-            }
-        }
-
         private string title;
         public string Title
         {
