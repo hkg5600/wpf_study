@@ -181,14 +181,16 @@ namespace _0709study.ViewModel
         {
             var (h, m, s) = ConvertToMin(time);
 
-            DispatcherTimer timer = new DispatcherTimer {
+            DispatcherTimer timer = new DispatcherTimer
+            {
                 Interval = new TimeSpan(Convert.ToInt32(h), Convert.ToInt32(m), Convert.ToInt32(s))
             }; //27일 후의 날짜를 입력하면 에러남
 
-            timer.Tick += new EventHandler(Timer_Tick);
-            timer.Start();
+            int id = MakeID();
 
-            Items.Add(new TimeModel() { dueTime = time, modelTimer = timer });
+            timer.Tick += (object sender, EventArgs e) => Timer_Tick(sender, e, id);
+            timer.Start();
+            Items.Add(new TimeModel() { dueTime = time, modelTimer = timer, id = id });
         }
 
         public void ModifyTime(DateTime time)
@@ -202,9 +204,9 @@ namespace _0709study.ViewModel
             Items.Remove(SelectedItem);
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e, int id)
         {
-            EndOfTimer(CheckTime());
+            EndOfTimer(CheckTime(id));
         }
 
         private void EndOfTimer(TimeModel time)
@@ -222,17 +224,13 @@ namespace _0709study.ViewModel
 
         }
 
-        private TimeModel CheckTime()
+        private TimeModel CheckTime(int id)
         {
             dynamic time = App.mainWindow.listView.Items;
             foreach (TimeModel t in time)
             {
-                DateTime t1 = t.dueTime;
-                DateTime t2 = DateTime.Now;
-                if (t1.Year == t2.Year && t1.Month == t2.Month && t1.Day == t2.Day && t1.Hour == t2.Hour && t1.Minute == t2.Minute)
-                {
+                if (id == t.id)
                     return t;
-                }
             }
             return null;
         }
@@ -258,6 +256,16 @@ namespace _0709study.ViewModel
             TimeSpan resultTime = t - DateTime.Now;
             long sec = (resultTime.Days * 24 * 60 * 60) + (resultTime.Hours * 60 * 60) + (resultTime.Minutes * 60) + (resultTime.Seconds);
             return ((sec / 60 / 60), (sec / 60 % 60), (sec % 60 % 60));
+        }
+
+        private int MakeID()
+        {
+            for (int i = 0; ; i++)
+            {
+                var item = Items.FirstOrDefault(t => t.id == i);
+                if (item == null)
+                    return i;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

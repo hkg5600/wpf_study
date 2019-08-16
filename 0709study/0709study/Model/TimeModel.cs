@@ -11,5 +11,6 @@ namespace _0709study.Model
     {
         public DateTime dueTime { get; set; }
         public DispatcherTimer modelTimer { get; set; }
+        public int id { get; set; }
     }
 }
