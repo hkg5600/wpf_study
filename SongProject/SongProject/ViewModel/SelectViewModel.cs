@@ -35,14 +35,25 @@ namespace SongProject.ViewModel
             }
         }
 
-        public bool ReceiveFromServer()
+        public bool ReceiveFromServer(string code = null)
         {
             var data = new RequestToSever().GetFromServer();
             if (data != null)
             {
                 foreach (var v in data)
                 {
-                    Data.Add(new SongDataModel() { id = v["id"].ToString(), title = v["title"].ToString(), code = v["code"].ToString(), url = v["url"].ToString() });
+                    if (code == null)
+                    {
+                        Data.Add(new SongDataModel() { id = v["id"].ToString(), title = v["title"].ToString(), code = v["code"].ToString(), url = v["url"].ToString() });
+                    }
+                    else
+                    {
+                        if (v["code"].ToString() == code)
+                        {
+                            Data.Add(new SongDataModel() { id = v["id"].ToString(), title = v["title"].ToString(), code = v["code"].ToString(), url = v["url"].ToString() });
+                        }
+                    }
+
                 }
                 return true;
             }

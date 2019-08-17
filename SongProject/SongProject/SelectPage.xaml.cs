@@ -55,5 +55,53 @@ namespace SongProject
             }
             App.selectViewModel.Data.Remove(sdm);
         }
+
+        private void C_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.selectViewModel.Data.Clear();
+            App.selectViewModel.ReceiveFromServer("C");
+        }
+
+        private void D_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.selectViewModel.Data.Clear();
+            App.selectViewModel.ReceiveFromServer("D");
+        }
+
+        private void E_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.selectViewModel.Data.Clear();
+            App.selectViewModel.ReceiveFromServer("E");
+        }
+
+        private void F_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.selectViewModel.Data.Clear();
+            App.selectViewModel.ReceiveFromServer("F");
+        }
+
+        private void G_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.selectViewModel.Data.Clear();
+            App.selectViewModel.ReceiveFromServer("G");
+        }
+
+        private void A_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.selectViewModel.Data.Clear();
+            App.selectViewModel.ReceiveFromServer("A");
+        }
+
+        private void B_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.selectViewModel.Data.Clear();
+            App.selectViewModel.ReceiveFromServer("B");
+        }
+
+        private void ShowAll_Button_Click(object sender, RoutedEventArgs e)
+        {
+            App.selectViewModel.Data.Clear();
+            App.selectViewModel.ReceiveFromServer();
+        }
     }
 }
